@@ -46,6 +46,16 @@ module Enumerable
  def my_any?
   if block_given?
 
+   my_each {|result| return true unless yield result}
+  else
+   my_each {|result| return true unless result }
+  end
+   false
+ end
+ #my_none
+ def my_none?
+  if block_given?
+
    my_each {|result| return false unless yield result}
   else
    my_each {|result| return false unless result }
@@ -54,4 +64,4 @@ module Enumerable
  end
 
 end
-p %w[ant bear cat].my_any? { |word| word.length >= 3 }
+p %w[ant bear cat].my_none? { |word| word.length >= 3 }
