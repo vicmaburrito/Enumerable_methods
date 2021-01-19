@@ -62,6 +62,13 @@ module Enumerable
   end
    true
  end
+ #my_count
+ def my_count
+  if block_given?
+   count = 0
+   my_each { |i| count += 1 if yield(i) }
+ end
 
 end
-p %w[ant bear cat].my_none? { |word| word.length >= 3 }
+end
+ %w[1 2 3 4].my_count { |word|p word.length >= 3 }
