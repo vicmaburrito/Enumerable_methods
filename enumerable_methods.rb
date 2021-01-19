@@ -23,3 +23,12 @@ module Enumerable
     end
     self
   end
+  #my_select
+  def my_select
+   return to_enum(:my_select) unless block_given?
+    result = []
+
+    my_each { |i| result << i if yield(i) }
+    result
+   end
+ end
