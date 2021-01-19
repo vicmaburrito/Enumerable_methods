@@ -32,3 +32,13 @@ module Enumerable
     result
    end
  end
+ #my_all
+ def my_all?
+  if block_given?
+   my_each {|result| return false unless yield result}
+  else
+   my_each { |result| return false unless result }
+   end
+   true
+
+  end
