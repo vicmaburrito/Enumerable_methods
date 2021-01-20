@@ -92,7 +92,7 @@ module Enumerable
   end
 
   # my_inject
-  def my_inject
+  def my_inject(*args)
     if args[0].is_a? Integer
       accumulator = args[0]
       symbol = args[1]
