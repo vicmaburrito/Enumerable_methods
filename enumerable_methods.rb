@@ -69,15 +69,14 @@ module Enumerable
 
   # my_count
   def my_count
-    if block_given?
-      count = 0
-      my_each do |i|
-        count += 1
-        yield(i)
-      end
+    return to_enum(:my_count) unless block_given?
+
+    count = 0
+    my_each do |i|
+      count += 1
+      yield(i)
     end
   end
-  %w[1 2 3 4].my_count { |word| p word.length >= 3 }
 
   # my_map
   def my_map(par_ = nil)
@@ -93,6 +92,7 @@ module Enumerable
   end
 
   # my_inject
+  
   def my_inject(*args)
     if args[0].is_a? Integer
       accumulator = args[0]
