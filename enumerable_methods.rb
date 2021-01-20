@@ -3,105 +3,114 @@ module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
 
-    arr = is_a?(Enumerable) && !is_a?(Array)? to_a : self
+    arr = is_a?(Enumerable) && !is_a?(Array) ? to_a : self
     counter = 0
-    while counter < size 
+    while counter < size
       yield (arr[counter])
       counter += 1
     end
     self
   end
- 
-  #my_each_with_index
+
+  # my_each_with_index
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
-    arr = is_a?(Enumerable) && !is_a?(Array)? to_a : self
+
+    arr = is_a?(Enumerable) && !is_a?(Array) ? to_a : self
     counter = 0
-    while counter < size 
+    while counter < size
       yield(arr[counter], counter)
       counter += 1
     end
     self
   end
-  #my_select
+
+  # my_select
   def my_select
-   return to_enum(:my_select) unless block_given?
+    return to_enum(:my_select) unless block_given?
+
     result = []
 
     my_each { |i| result << i if yield(i) }
     result
- end
- #my_all
- def my_all?
-  if block_given?
-
-   my_each {|result| return false unless yield result}
-  else
-   my_each {|result| return false unless result }
   end
+
+  # my_all
+  def my_all?
+    if block_given?
+
+      my_each { |result| return false unless yield result }
+    else
+      my_each { |result| return false unless result }
+    end
     true
- end
- #my_any?
- def my_any?
-  if block_given?
+  end
 
-   my_each {|result| return true unless yield result}
-  else
-   my_each {|result| return true unless result }
+  # my_any?
+  def my_any?
+    if block_given?
+
+      my_each { |result| return true unless yield result }
+    else
+      my_each { |result| return true unless result }
+    end
+    false
   end
-   false
- end
- #my_none
- def my_none?
-  if block_given?
-   my_each {|result| return false unless yield result }
-  else
-   my_each {|result| return false unless result }
+
+  # my_none
+  def my_none?
+    if block_given?
+      my_each { |result| return false unless yield result }
+    else
+      my_each { |result| return false unless result }
+    end
+    true
   end
-   true
- end
- #my_count
- def my_count
-  if block_given?
-    count = 0
-    my_each do |i| 
-      count += 1 
-      yield(i) 
+
+  # my_count
+  def my_count
+    if block_given?
+      count = 0
+      my_each do |i|
+        count += 1
+        yield(i)
+      end
     end
   end
-end
- %w[1 2 3 4].my_count { |word|p word.length >= 3 }
+  %w[1 2 3 4].my_count { |word| p word.length >= 3 }
 
-#my_map 
-def my_map(par_ = nil)
-  new_arr = []
-  return to_enum unless block_given?
+  # my_map
+  def my_map(par_ = nil)
+    new_arr = []
+    return to_enum unless block_given?
 
-  if par_
-    my_each { |i| new_arr << par_.call(i) }
-  else
-    my_each { |i| new_arr << yield(i) }
+    if par_
+      my_each { |i| new_arr << par_.call(i) }
+    else
+      my_each { |i| new_arr << yield(i) }
+    end
+    new_arr
   end
-  new_arr
-end
-#my_inject 
-def my_inject(*args)
-  if args[0].is_a? Integer
-    accumulator = args[0]
-    symbol = args[1]
-  else
-    symbol = args[0]
+
+  # my_inject
+  def my_inject(*args)
+    if args[0].is_a? Integer
+      accumulator = args[0]
+      symbol = args[1]
+    else
+      symbol = args[0]
+    end
+    if block_given? && args.size == 1
+      my_each { |x| accumulator = yield(accumulator, x) }
+    elsif args.size == 2
+      my_each { |x| accumulator = accumulator.send(symbol, x) }
+    elsif block_given?
+      my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
+    elsif block_given? == false
+      my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
+    else
+      my_each { |x| accumulator = accumulator ? accumulator.send(symbol, x) : x }
+    end
+    accumulator
   end
-  if block_given? && args.size == 1
-    my_each { |x| accumulator = yield(accumulator, x) }
-  elsif args.size == 2
-    my_each { |x| accumulator = accumulator.send(symbol, x) }
-  elsif block_given?
-    my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
-  elsif block_given? == false
-    my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
-  else
-    my_each { |x| accumulator = accumulator ? accumulator.send(symbol, x) : x }
-  end
-  accumulator
 end
