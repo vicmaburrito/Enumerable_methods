@@ -15,7 +15,6 @@ module Enumerable
   #my_each_with_index
   def my_each_with_index
     return to_enum(:my_each_with_index) unless block_given?
-
     arr = is_a?(Enumerable) && !is_a?(Array)? to_a : self
     counter = 0
     while counter < size 
@@ -84,4 +83,25 @@ def my_map(par_ = nil)
     my_each { |i| new_arr << yield(i) }
   end
   new_arr
+end
+#my_inject 
+def my_inject(*args)
+  if args[0].is_a? Integer
+    accumulator = args[0]
+    symbol = args[1]
+  else
+    symbol = args[0]
+  end
+  if block_given? && args.size == 1
+    my_each { |x| accumulator = yield(accumulator, x) }
+  elsif args.size == 2
+    my_each { |x| accumulator = accumulator.send(symbol, x) }
+  elsif block_given?
+    my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
+  elsif block_given? == false
+    my_each { |x| accumulator = accumulator ? yield(accumulator, x) : x }
+  else
+    my_each { |x| accumulator = accumulator ? accumulator.send(symbol, x) : x }
+  end
+  accumulator
 end
