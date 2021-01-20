@@ -55,8 +55,7 @@ module Enumerable
  #my_none
  def my_none?
   if block_given?
-
-   my_each {|result| return false unless yield result}
+   my_each {|result| return false unless yield result }
   else
    my_each {|result| return false unless result }
   end
@@ -65,10 +64,24 @@ module Enumerable
  #my_count
  def my_count
   if block_given?
-   count = 0
-   my_each { |i| count += 1 if yield(i) }
- end
-
-end
+    count = 0
+    my_each do |i| 
+      count += 1 
+      yield(i) 
+    end
+  end
 end
  %w[1 2 3 4].my_count { |word|p word.length >= 3 }
+
+#my_map 
+def my_map(par_ = nil)
+  new_arr = []
+  return to_enum unless block_given?
+
+  if par_
+    my_each { |i| new_arr << par_.call(i) }
+  else
+    my_each { |i| new_arr << yield(i) }
+  end
+  new_arr
+end
