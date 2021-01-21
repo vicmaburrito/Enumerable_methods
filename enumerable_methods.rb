@@ -38,10 +38,13 @@ module Enumerable
   end
 
   # my_all
-  def my_all?
+  def my_all?(arg = nil)
     if block_given?
-
       my_each { |result| return false unless yield result }
+    elsif arg.is_a? Regexp
+      my_each { |result| return false if result.to_s =~ arg }
+    elsif arg.is_a? Class
+      my_each { |result| return false if result.is_a? arg }
     else
       my_each { |result| return false unless result }
     end
@@ -49,10 +52,13 @@ module Enumerable
   end
 
   # my_any?
-  def my_any?
+  def my_any?(arg = nil)
     if block_given?
-
       my_each { |result| return true unless yield result }
+    elsif arg.is_a? Regexp
+      my_each { |result| return true if result.to_s =~ arg }
+    elsif arg.is_a? Class
+      my_each { |result| return true if result.is_a? arg }
     else
       my_each { |result| return true unless result }
     end
@@ -60,9 +66,13 @@ module Enumerable
   end
 
   # my_none
-  def my_none?
+  def my_none?(arg = nil)
     if block_given?
       my_each { |result| return false unless yield result }
+    elsif arg.is_a? Regexp
+      my_each { |result| return false if result.to_s =~ arg }
+    elsif arg.is_a? Class
+      my_each { |result| return false if result.is_a? arg }
     else
       my_each { |result| return false unless result }
     end
