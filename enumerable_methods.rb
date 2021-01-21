@@ -1,5 +1,3 @@
-
-
 module Enumerable
   # my each
   def my_each
@@ -32,7 +30,6 @@ module Enumerable
     return to_enum(:my_select) unless block_given?
 
     result = []
-
     my_each { |i| result << i if yield(i) }
     result
   end
@@ -122,12 +119,10 @@ module Enumerable
     else
       my_each { |x| accumulator = accumulator ? accumulator.send(symbol, x) : x }
     end
-  accumulator
+    accumulator
   end
-  public
+
   def multiply_els
     my_inject(1, :*)
   end
-# rubocop:enable Metrics/CyclomaticComplexity
-# rubocop:enable Metrics/PerceivedComplexity
-# rubocop:enable Metrics/ModuleLength
+end
