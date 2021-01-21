@@ -112,4 +112,10 @@ module Enumerable
     end
     accumulator
   end
+
+public
+
+def multiply_els
+  my_inject(1, :*)
+end
 end
