@@ -1,3 +1,5 @@
+
+
 module Enumerable
   # my each
   def my_each
@@ -110,12 +112,12 @@ module Enumerable
     else
       my_each { |x| accumulator = accumulator ? accumulator.send(symbol, x) : x }
     end
-    accumulator
+  accumulator
   end
-
-public
-
-def multiply_els
-  my_inject(1, :*)
-end
-end
+  public
+  def multiply_els
+    my_inject(1, :*)
+  end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
+# rubocop:enable Metrics/ModuleLength
