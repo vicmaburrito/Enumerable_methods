@@ -86,56 +86,32 @@ module Enumerable
   end
 
   # my_inject
-  def my_inject(*parameter) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/MethodLength, Metrics/AbcSize
-    return 'wrong number of arguments' unless parameter.size <= 2
-
-    output_array = is_a?(Array) ? self : to_a
-    my_symbol = nil
-    my_initial = nil
-    parameter.each do |elem|
-      if elem.is_a?(Symbol)
-        my_symbol = elem
-      else
-        my_initial = elem
-      end
+  def my_inject(*arg)
+    res = nil
+    if arg.first && [Integer, Float].include?(arg.first.class)
+      res = arg.first
+      arr = to_a
+    else
+      res = first
+      arr = to_a[1..-1]
     end
-
-    if !my_symbol.nil? && !my_initial.nil?
-      cumulator = my_initial
-      each do |elem|
-        cumulator = cumulator.send(my_symbol, elem)
-      end
-    elsif !my_symbol.nil? && my_initial.nil?
-      cumulator = output_array[0]
-      i = 1
-      while i < size
-        cumulator = cumulator.send(my_symbol, output_array[i])
-        i += 1
-      end
-    elsif my_symbol.nil? && !my_initial.nil? && block_given?
-      cumulator = my_initial
-      each do |elem|
-        cumulator = yield cumulator, elem
-      end
-    elsif my_symbol.nil? && !my_initial.nil? && !block_given?
-      return "error #{my_initial} not a symbol and no block is given"
-    elsif my_symbol.nil? && my_initial.nil? && block_given?
-      cumulator = output_array[0]
-      i = 1
-      while i < size
-        cumulator = yield cumulator, output_array[i]
-        i += 1
-      end
-    else my_symbol.nil? && my_initial.nil? && !block_given?
-         return to_enum(:my_inject)
+    if block_given?
+      arr.my_each { |el| res = yield(res, el) }
+    elsif arg.last.is_a? Symbol
+      arr.my_each { |el| res = arg.last.to_proc.call(res, el) }
+    else
+      res = to_enum
     end
-    cumulator
+    res
   end
 
   def multiply_els(arr)
     arr.inject { |total, n| total * n }
   end
 end
+
+p [1,2,3,4].my_each {|n| p n + 2}
+p [1,2,3,4].each {|n| p n + 2}
 
 # p %w[ant bear cat].my_all? { |word| word.length >= 3 }
 # p %w[ant bear cat].my_all? { |word| word.length >= 4 }
