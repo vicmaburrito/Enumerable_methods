@@ -1,5 +1,5 @@
 # Enumerable_methods
-This project was focused on the building blocks of ruby enumerables, we create our own enumerable to function as the the main enumerable provided by ruby
+This project was focused on the building blocks of ruby enumerables, we create our own enumerable to function as the the main enumerable provided by ruby and tested it with the use of rspec
 
 # Getting Started
 
@@ -17,11 +17,13 @@ Step 3: Run the program from command line, then open it in a text editor
 
 
 ## BUILT WITH
--Ruby
+- Ruby
 
--Vs-code
+- Vs-code
 
--Rubocop linters
+- Rubocop linters
+
+- Rspec gem
 
 
 ## LIVE DEMO
@@ -32,12 +34,6 @@ Step 3: Run the program from command line, then open it in a text editor
 - GitHub:[@Diamond-Nicholas] (https://github.com/diamond-nicholas) 
 - Twitter: [@twitterhandle](https://twitter.com/diamondnich)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/diamond-nicholas/)
-
-👤 **Manuel Aldaraca**
-- GitHub:[@vicmaburrito] (https://github.com/vicmaburrito) 
-- Twitter: [@twitterhandle](https://twitter.com/ManuelAldaraca)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/manuel-aldaraca)
-
 
 ## SHOW YOUR SUPPORT
 Give a \* if you like the project
