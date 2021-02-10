@@ -23,6 +23,15 @@ describe Enumerable do
     end
   end
 
+  describe 'my_select' do
+    it 'returns an array containing all elements of enum for which the given block returns a true value.' do
+      expect([1,2,3,4,8].my_select {|p| p%2 == 0}).to eql([2,4,8])
+    end
+
+    it 'If no block is given, an Enumerator is returned instead' do
+      expect([1,2,3,4].my_select).to be_a Enumerator
+    end
+  end
 
 
 
