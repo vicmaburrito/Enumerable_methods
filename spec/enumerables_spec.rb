@@ -99,6 +99,19 @@ describe Enumerable do
     end
   end
 
+  describe 'my_count' do
+    it 'returns the number of items in enum through enumeration' do
+      expect([1,2,3,4].my_count).to eql(4)
+    end
+
+    it 'returns the number of items in enum that are equal to item are counted if an argument is given' do
+      expect([1,2,3,2].my_count(2)).to eql(2)
+    end
+
+    it 'counts the number of elements yielding a true value if a block is given' do
+      expect([1,2,3,2].my_count{ |x| x%2==0 }).to eql(2)
+    end
+  end
 
 
 
