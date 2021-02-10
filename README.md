@@ -11,7 +11,7 @@ git clone https://github.com/vicmaburrito/Enumerable_methods.git
 
 Step 2: Direct a terminal into the cloned repository directory
 
-cd bubble_sort
+cd rspec_testing
 
 Step 3: Run the program from command line, then open it in a text editor
 
