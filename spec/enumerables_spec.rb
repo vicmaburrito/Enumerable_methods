@@ -3,38 +3,38 @@ require_relative '../enumerable_methods'
 enum = Enumerable
 
 describe Enumerable do
-  describe 'my_each' do 
+  describe 'my_each' do
     it 'returns to_enum if no arguments or block were given' do
-      expect([1,2,3].my_each).to be_a Enumerator
+      expect([1, 2, 3].my_each).to be_a Enumerator
     end
 
     it 'returns the array when a block is given' do
-      expect([1,2,3].my_each {|ele|}).to eql([1,2,3])
+      expect([1, 2, 3].my_each { |ele| }).to eql([1, 2, 3])
     end
   end
 
   describe 'my_each_with_index' do
     it 'returns to_enum if no arguments or block were given' do
-      expect([1,2,3].my_each_with_index).to be_a Enumerator
+      expect([1, 2, 3].my_each_with_index).to be_a Enumerator
     end
 
     it 'returns an array with its index if block were given' do
-      expect([1,2,3].my_each_with_index {|ele, idx|}).to eql([1,2,3])
+      expect([1, 2, 3].my_each_with_index { |ele, idx| }).to eql([1, 2, 3])
     end
   end
 
   describe 'my_select' do
     it 'returns an array containing all elements of enum for which the given block returns a true value.' do
-      expect([1,2,3,4,8].my_select {|p| p%2 == 0}).to eql([2,4,8])
+      expect([1, 2, 3, 4, 8].my_select(&:even?)).to eql([2, 4, 8])
     end
 
     it 'If no block is given, an Enumerator is returned instead' do
-      expect([1,2,3,4].my_select).to be_a Enumerator
+      expect([1, 2, 3, 4].my_select).to be_a Enumerator
     end
   end
 
-  describe 'my_all?' do 
-        it 'returns true if the block never returns false' do
+  describe 'my_all?' do
+    it 'returns true if the block never returns false' do
       expect(%w[ant bear cat].my_all? { |word| word.length >= 3 }).to eql(true)
     end
 
@@ -79,11 +79,11 @@ describe Enumerable do
 
   describe 'my_none' do
     it 'returns true if the block never returns true for all elements' do
-      expect(%w{ant bear cat}.my_none? { |word| word.length == 5 }).to eql(true)
+      expect(%w[ant bear cat].my_none? { |word| word.length == 5 }).to eql(true)
     end
 
     it 'returns true if the Regex pattern never matches with the elements' do
-      expect(%w{ant bear cat}.my_none?(/d/)).to eql(true)
+      expect(%w[ant bear cat].my_none?(/d/)).to eql(true)
     end
 
     it 'returns false if atleast one of the element is of the same Class' do
@@ -101,25 +101,25 @@ describe Enumerable do
 
   describe 'my_count' do
     it 'returns the number of items in enum through enumeration' do
-      expect([1,2,3,4].my_count).to eql(4)
+      expect([1, 2, 3, 4].my_count).to eql(4)
     end
 
     it 'returns the number of items in enum that are equal to item are counted if an argument is given' do
-      expect([1,2,3,2].my_count(2)).to eql(2)
+      expect([1, 2, 3, 2].my_count(2)).to eql(2)
     end
 
     it 'counts the number of elements yielding a true value if a block is given' do
-      expect([1,2,3,2].my_count{ |x| x%2==0 }).to eql(2)
+      expect([1, 2, 3, 2].my_count(&:even?)).to eql(2)
     end
   end
 
-  describe 'my_map' do 
+  describe 'my_map' do
     it 'returns a new array with the results of running block once for every element in enum' do
-      expect((1..4).my_map { |i| i*i }).to eql([1, 4, 9, 16])
+      expect((1..4).my_map { |i| i * i }).to eql([1, 4, 9, 16])
     end
 
     it 'returns an enumerator if no block is given' do
-      expect((1..4).my_map { "cat"}).to eql(["cat", "cat", "cat", "cat"])
+      expect((1..4).my_map { 'cat' }).to eql(%w[cat cat cat cat])
     end
   end
 
@@ -129,15 +129,15 @@ describe Enumerable do
     end
 
     it 'returns the sum total of range of numbers if block is given' do
-      expect((5..10).my_inject {|total, value| total += value}).to eql(45)
+      expect((5..10).my_inject { |total, value| total += value }).to eql(45)
     end
 
     it 'returns the multiplication total of range of numbers' do
-      expect((5..10).my_inject(:*)).to eql(151200)
+      expect((5..10).my_inject(:*)).to eql(151_200)
     end
 
     it 'returns the multiplication total of range of numbers if block is given' do
-      expect((5..10).my_inject {|total, value| total *= value}).to eql(151200)
+      expect((5..10).my_inject { |total, value| total *= value }).to eql(151_200)
     end
   end
 end
