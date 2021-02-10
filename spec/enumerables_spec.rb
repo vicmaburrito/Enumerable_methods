@@ -123,7 +123,21 @@ describe Enumerable do
     end
   end
 
+  describe 'my_inject' do
+    it 'returns the sum total of range of numbers' do
+      expect((5..10).my_inject(:+)).to eql(45)
+    end
 
+    it 'returns the sum total of range of numbers if block is given' do
+      expect((5..10).my_inject {|total, value| total += value}).to eql(45)
+    end
 
+    it 'returns the multiplication total of range of numbers' do
+      expect((5..10).my_inject(:*)).to eql(151200)
+    end
 
+    it 'returns the multiplication total of range of numbers if block is given' do
+      expect((5..10).my_inject {|total, value| total *= value}).to eql(151200)
+    end
+  end
 end
