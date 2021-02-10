@@ -77,6 +77,28 @@ describe Enumerable do
     end
   end
 
+  describe 'my_none' do
+    it 'returns true if the block never returns true for all elements' do
+      expect(%w{ant bear cat}.my_none? { |word| word.length == 5 }).to eql(true)
+    end
+
+    it 'returns true if the Regex pattern never matches with the elements' do
+      expect(%w{ant bear cat}.my_none?(/d/)).to eql(true)
+    end
+
+    it 'returns false if atleast one of the element is of the same Class' do
+      expect([1, 3.14, 42].my_none?(Float)).to eql(false)
+    end
+
+    it 'returns true if the array is empty' do
+      expect([].my_none?).to eql(true)
+    end
+
+    it 'returns true if arg is equal to nill' do
+      expect([nil].my_none?).to eql(true)
+    end
+  end
+
 
 
 
