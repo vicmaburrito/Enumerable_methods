@@ -33,6 +33,27 @@ describe Enumerable do
     end
   end
 
+  describe 'my_all?' do 
+        it 'returns true if the block never returns false' do
+      expect(%w[ant bear cat].my_all? { |word| word.length >= 3 }).to eql(true)
+    end
+
+    it 'returns false if all elements does not contain a Regexp pattern' do
+      expect(%w[ant bear cat].my_all?(/t/)).to eql(false)
+    end
+
+    it 'returns true if all elements are of the same class' do
+      expect([1, 2i, 3.14].my_all?(Numeric)).to eql(true)
+    end
+
+    it 'returns false if no block given and arg is equal to nil' do
+      expect([nil, true, 99].my_all?).to eql(false)
+    end
+
+    it 'returns true if no block is given an the array is empty' do
+      expect([].my_all?).to eql(true)
+    end
+  end
 
 
 
