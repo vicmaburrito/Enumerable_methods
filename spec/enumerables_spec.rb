@@ -113,6 +113,16 @@ describe Enumerable do
     end
   end
 
+  describe 'my_map' do 
+    it 'returns a new array with the results of running block once for every element in enum' do
+      expect((1..4).my_map { |i| i*i }).to eql([1, 4, 9, 16])
+    end
+
+    it 'returns an enumerator if no block is given' do
+      expect((1..4).my_map { "cat"}).to eql(["cat", "cat", "cat", "cat"])
+    end
+  end
+
 
 
 
