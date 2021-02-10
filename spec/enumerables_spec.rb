@@ -55,6 +55,27 @@ describe Enumerable do
     end
   end
 
+  describe 'my_any' do
+    it 'returns true if the block ever returns a value other than false or nil' do
+      expect(%w[ant bear cat].my_any? { |word| word.length >= 3 }).to eql(true)
+    end
+
+    it 'returns false if any elements does not contain a Regexp pattern' do
+      expect(%w[ant bear cat].my_any?(/d/)).to eql(false)
+    end
+
+    it 'returns true if any elements are of the same class' do
+      expect([nil, true, 99].my_any?(Integer)).to eql(true)
+    end
+
+    it 'returns true if no block given and arg is equal to nil' do
+      expect([nil, true, 99].my_any?).to eql(true)
+    end
+
+    it 'returns false if no block is given an the array is empty' do
+      expect([].my_any?).to eql(false)
+    end
+  end
 
 
 
