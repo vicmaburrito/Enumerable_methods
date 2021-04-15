@@ -142,4 +142,27 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_map' do
+    context 'when no block and no proc is given it returns Enumerable' do
+      it '#my_map' do
+        expect(eg_range.my_map).to be_an(friends.to_enum.class)
+      end
+    end
+    context 'when block is given and no proc argument' do
+      it '#my_map' do
+        output = (1..4).my_map do |item|
+          item * item
+        end
+        expect(output).to eql([1, 4, 9, 16])
+      end
+    end
+    context 'when no block is given and a proc is an argument' do
+      it '#my_map' do
+        test_proc = proc { |item| item * item }
+        output = (1..4).my_map(&test_proc)
+        expect(output).to eql([1, 4, 9, 16])
+      end
+    end
+  end
 end

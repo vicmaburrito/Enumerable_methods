@@ -27,11 +27,13 @@ Step 3: Run the program from command line, then open it in a text editor
 ## LIVE DEMO
 
 
-## AUTHORS
-👤 **Diamond Nicholas**
-- GitHub:[@Diamond-Nicholas] (https://github.com/diamond-nicholas) 
-- Twitter: [@twitterhandle](https://twitter.com/diamondnich)
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/diamond-nicholas/)
+## Testing
+
+- clone the repository with this command `$ git clone https://github.com/vicmaburrito/Enumerable_methods.git`
+- switch to test branch with this command `git checkout testing`
+- at the root level of the project run the command `rspec ./spec/spec_enumerables.rb`
+- see test results in the terminal
+
 
 👤 **Manuel Aldaraca**
 - GitHub:[@vicmaburrito] (https://github.com/vicmaburrito) 
