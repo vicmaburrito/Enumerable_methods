@@ -68,4 +68,62 @@ describe Enumerable do
       end
     end
   end
+
+  describe '#my_any?' do
+    context 'when object is an array' do
+      it '#my_any?' do
+        output = array_of_strings.my_any? { |word| word.length >= 4 }
+        expect(output).to eql(true)
+      end
+    end
+    context 'when object is not an array' do
+      it '#my_any?' do
+        output = eg_range.my_any? { |x| x > 0 }
+        expect(output).to eql(true)
+      end
+    end
+    context 'when a block is given and arguments class is not regexp' do
+      it '#my_any?' do
+        output = [1, 2i, 3.14].my_any?(Integer)
+        expect(output).to eql(true)
+      end
+    end
+    context 'when a block is given and arguments class is regexp' do
+      it '#my_any?' do
+        output = %w[ant bear cat].my_any?(/d/)
+        expect(output).to eql(false)
+      end
+    end
+    context 'when no block given, no arguments given and object is an empty array' do
+      it '#my_any?' do
+        output = [].my_any?
+        expect(output).to eql(false)
+      end
+    end
+    context 'when no block given and no arguments given' do
+      it '#my_any?' do
+        output = [nil, true, 99].my_any?
+        expect(output).to eql(true)
+      end
+    end
+  end
+
+  describe 'my_none' do
+    it 'returns true if the block never returns true for all elements' do
+      expect(%w[ant bear cat].my_none? { |word| word.length == 5 }).to eql(true)
+    end
+    it 'returns true if the Regex pattern never matches with the elements' do
+      expect(%w[ant bear cat].my_none?(/d/)).to eql(true)
+    end
+    it 'returns false if atleast one of the element is of the same Class' do
+      expect([1, 3.14, 42].my_none?(Float)).to eql(false)
+    end
+    it 'returns true if the array is empty' do
+      expect([].my_none?).to eql(true)
+    end
+    it 'returns true if arg is equal to nill' do
+      expect([nil].my_none?).to eql(true)
+    end
+  end
+
 end
