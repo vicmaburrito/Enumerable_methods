@@ -31,7 +31,7 @@ Step 3: Run the program from command line, then open it in a text editor
 
 - clone the repository with this command `$ git clone https://github.com/vicmaburrito/Enumerable_methods.git`
 - switch to test branch with this command `git checkout testing`
-- at the root level of the project run the command `rspec ./spec/spec_enumerables.rb`
+- at the root level of the project run the command `rspec`
 - see test results in the terminal
 
 
